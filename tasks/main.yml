@@ -2,3 +2,6 @@
 - name: Register RHEL NODES
   include_tasks: register-rhel-nodes.yml
   when: ansible_distribution == "RedHat"
+
+- name: Install required packages
+  include_tasks: install-required-packages.yml

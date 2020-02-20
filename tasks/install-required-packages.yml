@@ -1,0 +1,13 @@
+- name: Install needed packages
+  yum:
+    name:
+      - bind
+      - bind-utils
+      - haproxy
+      - httpd
+      - vim
+      - bash-completion
+      - libselinux-python
+      - podman
+      - nfs-utils
+    state: present
