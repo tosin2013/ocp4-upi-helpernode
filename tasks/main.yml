@@ -1,7 +1,4 @@
 ---
-  handlers:
-- import_tasks: ../handlers/main.yml
-
 - name: Install needed packages
   yum:
     name:
