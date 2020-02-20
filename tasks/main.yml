@@ -5,3 +5,15 @@
 
 - name: Install required packages
   include_tasks: install-required-packages.yml
+
+- name: Configure and install DHCP/PXE
+  include_tasks: install-configure-dhcp-pxe.yml
+  when: not staticips
+
+- name: Configure bind DNS Server
+  include_tasks: configure-bind-dns.yml
+  when: configuredns
+
+- name: Configure HAProxy Server
+  include_tasks: configure-ha-proxy-server.yml
+  when: configure_haproxy

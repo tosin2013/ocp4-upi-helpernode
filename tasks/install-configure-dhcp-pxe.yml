@@ -1,0 +1,14 @@
+- name: Install packages for DHCP/PXE install
+  yum:
+    name:
+      - dhcp
+      - syslinux
+      - tftp-server
+    state: present
+
+- name: Write out dhcp file
+  template:
+    src: ../templates/dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+  notify:
+    - restart dhcpd

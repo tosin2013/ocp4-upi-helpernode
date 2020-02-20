@@ -1,4 +1,4 @@
-- name: Register as auto-subscribe to red hat subscription.
+- name: Register and auto-subscribe to red hat subscription.
   redhat_subscription:
     state: present
     username: "{{ rhel_username }}"

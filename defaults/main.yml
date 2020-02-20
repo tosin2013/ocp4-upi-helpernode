@@ -1,2 +1,7 @@
 ---
 # defaults file for tester
+rhel_username: rhel_user
+rhel_password: rhel_pass
+staticips: false
+configuredns: true
+configure_haproxy: true
