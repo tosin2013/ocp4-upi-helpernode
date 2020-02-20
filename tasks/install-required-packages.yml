@@ -10,4 +10,5 @@
       - libselinux-python
       - podman
       - nfs-utils
+      - git
     state: present
