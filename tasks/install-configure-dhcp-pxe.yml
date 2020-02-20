@@ -40,6 +40,12 @@
 - name: Copy over files needed for TFTP
   shell: "cp -a /usr/share/syslinux/* /var/lib/tftpboot"
 
+- name: Downloading OCP4 installer Bios
+  get_url:
+    url: "{{ ocp_bios}}"
+    dest: /var/www/html/install/bios.raw.gz
+    mode: 0555
+
 - name: Downloading OCP4 installer initramfs
   get_url:
     url: "{{ ocp_initramfs }}"
