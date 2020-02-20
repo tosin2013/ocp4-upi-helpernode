@@ -32,3 +32,21 @@
     dest: /var/named/reverse.db
   notify:
     - restart bind
+
+- name: Open up firewall ports
+  firewalld:
+    permanent: yes
+    immediate: yes
+    state: enabled
+    port: "{{ item }}"
+  with_items:
+    - 53/tcp
+    - 53/udp
+
+- name: Best effort SELinux repair - DNS
+  shell: "restorecon -vR /var/named || true"
+
+- name: Set the local resolv.conf file
+  template:
+    src: ../templates/resolv.conf.j2
+    dest: /etc/resolv.conf

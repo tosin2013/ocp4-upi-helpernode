@@ -17,3 +17,26 @@
 - name: Configure HAProxy Server
   include_tasks: configure-ha-proxy-server.yml
   when: configure_haproxy
+
+- name: Configure Web Server
+  include_tasks: configure-web-server.yml
+  when: configure_webserver
+
+- name: Starting Services
+  include_tasks: starting-services.yml
+
+- name: Configure NFS Provisioner
+  include_tasks: configure-nfs-provisioner.yml
+  when: configure_nfs_provisioner
+
+- name: Configure Additional Tools
+  include_tasks: configure-additional-tools.yml
+
+- name: Final DNS Changes
+  include_tasks: configure-bind-part-2.yml
+  when: configuredns
+
+- name:  Information about this install
+  debug:
+    msg:
+      - "Please run /usr/local/bin/helpernodecheck for information"

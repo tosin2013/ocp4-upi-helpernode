@@ -1,0 +1,32 @@
+- name: Starting DNS Service
+  service:
+    name: named
+    enabled: yes
+    state: started
+  when: configuredns
+
+- name: Starting HA Proxy Service
+  service:
+    name: haproxy
+    enabled: yes
+    state: started
+  when: configure_haproxy
+
+- name: Starting  Web Service
+  service:
+    name: httpd
+    enabled: yes
+    state: started
+  when: configure_webserver
+
+- name: Starting NFS Server
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - rpcbind
+    - nfs-server
+    - nfs-lock
+    - nfs-idmap
+  when: configure_nfs_provisioner

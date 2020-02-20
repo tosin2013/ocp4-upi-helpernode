@@ -1,0 +1,43 @@
+- name: Copy httpd conf file
+  copy:
+    src: ../files/httpd.conf
+    dest: /etc/httpd/conf/httpd.conf
+  notify:
+    - restart httpd
+
+- name: Create apache directories for installing
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - /var/www/html/install
+    - /var/www/html/ignition
+
+- name: Delete OCP4 files, if requested, to download again
+  file:
+     state: absent
+     path: "{{ item }}"
+  with_items:
+    - "/usr/local/src/openshift-client-linux.tar.gz"
+    - "/usr/local/src/openshift-install-linux.tar.gz"
+    - "/var/www/html/install/bios.raw.gz"
+    - "/var/lib/tftpboot/rhcos/initramfs.img"
+    - "/var/lib/tftpboot/rhcos/kernel"
+  when: force_ocp_download
+
+- name: Downloading OCP4 installer Bios
+  get_url:
+    url: "{{ ocp_bios}}"
+    dest: /var/www/html/install/bios.raw.gz
+    mode: 0555
+
+- name: Open up firewall ports
+  firewalld:
+    permanent: yes
+    immediate: yes
+    state: enabled
+    port: 8080/tcp
+
+- name: Best effort SELinux repair - Apache
+  shell: "restorecon -vR /var/www/html || true"
