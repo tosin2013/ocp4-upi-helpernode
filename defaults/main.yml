@@ -7,6 +7,7 @@ configuredns: true
 configure_haproxy: true
 configure_webserver: true
 configure_nfs_provisioner: true
+configure_oc_binaries: true
 
 force_ocp_download: false
 ocp_bios: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.3/4.3.0/rhcos-4.3.0-x86_64-metal.raw.gz"

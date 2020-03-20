@@ -10,23 +10,27 @@
   get_url:
     url: "{{ ocp_client }}"
     dest: /usr/local/src/openshift-client-linux.tar.gz
+  when: configure_oc_binaries
 
 - name: Downloading OCP4 Installer
   get_url:
     url: "{{ ocp_installer }}"
     dest: /usr/local/src/openshift-install-linux.tar.gz
+  when: configure_oc_binaries
 
 - name: Unarchiving OCP4 client
   unarchive:
     src: /usr/local/src/openshift-client-linux.tar.gz
     dest: /usr/local/bin
     remote_src: yes
+  when: configure_oc_binaries
 
 - name: Unarchiving OCP4 Installer
   unarchive:
     src: /usr/local/src/openshift-install-linux.tar.gz
     dest: /usr/local/bin
     remote_src: yes
+  when: configure_oc_binaries
 
 - name: Removing files that are not needed
   file:
